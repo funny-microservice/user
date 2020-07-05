@@ -1,6 +1,6 @@
 const test = require('supertest')
 const assert = require('assert')
-const app = require('../index')
+const app = require('../app')
 
 describe('user api', () => {
   it('get all', (done) => {

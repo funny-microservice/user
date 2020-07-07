@@ -3,7 +3,7 @@ const { ESLint } = require('eslint')
 const { spawn } = require('child_process')
 const sources = [
   'index.js',
-  'server.js',
+  'app.js',
   'ecosystem.config.js',
   'routes/**/*.js',
   'models/**/*.js',

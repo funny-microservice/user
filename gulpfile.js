@@ -27,7 +27,7 @@ gulp.task('lint', async () => {
 gulp.task('server', async () => {
   // ref: https://gist.github.com/webdesserts/5632955
   if (node) node.kill()
-  node = spawn('node', ['server.js'], { stdio: 'inherit' })
+  node = spawn('node', ['index.js'], { stdio: 'inherit' })
   node.on('close', function (code) {
     if (code === 8) {
       console.log('Error detected, waiting for changes...')

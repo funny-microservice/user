@@ -7,7 +7,8 @@ const sources = [
   'ecosystem.config.js',
   'routes/**/*.js',
   'models/**/*.js',
-  // 'test/**/*.js',
+  'libs/**/*.js',
+  'services/**/*.js',
   'gulpfile.js'
 ]
 let node

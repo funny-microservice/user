@@ -1,8 +1,18 @@
 const test = require('supertest')
 const assert = require('assert')
 const app = require('../app')
+const db = require('../libs/db')
 
 describe('user api', () => {
+  before(() => {
+    return db.sync()
+  })
+  beforeEach(() => {
+    return db.truncate()
+  })
+  after(() => {
+    return db.close()
+  })
   it('get all', (done) => {
     test(app)
       .get('/users')
@@ -24,9 +34,17 @@ describe('user api', () => {
   it('post', done => {
     test(app)
       .post('/users')
+      .send({
+        username: 'xk',
+        password: '123456',
+        gender: 'male'
+      })
+      .set('Accept', 'application/json')
       .expect(200)
+      .expect('Content-Type', /json/)
       .then(response => {
-        assert.equal(response.text, 'post req')
+        assert.deepEqual(response.body.code, 10000)
+        assert.deepEqual(response.body.data.username, 'xk')
         done()
       })
   })

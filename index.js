@@ -1,16 +1,3 @@
-const app = require('./app')
-const http = require('http')
-const PORT = 3000
+const bootstrap = require('./libs/bootstrap')
 
-http
-  .createServer(app)
-  .listen(PORT, () => {
-    console.log(`server started on port: ${PORT}`)
-  })
-
-process.addListener('uncaughtExceptionMonitor', (error) => {
-  console.log('uncaught exception occur', error)
-})
-process.addListener('unhandledRejection', (error) => {
-  console.log('uncaught rejecttion occur', error)
-})
+bootstrap.start()

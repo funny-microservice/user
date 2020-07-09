@@ -1,5 +1,8 @@
 const express = require('express')
 const router = express.Router()
+const bcode = require('../libs/business_code')
+const dto = require('./dto')
+const service = require('../services/user')
 
 router.all((req, res, next) => {
   next()
@@ -11,7 +14,17 @@ router.get('/:id', (req, res, next) => {
   res.end('get req')
 })
 router.post('', (req, res, next) => {
-  res.end('post req')
+  const msg = dto.verify(req.body)
+  if (msg) {
+    res.json(bcode.setResult(bcode.INVALID_PARAMS, msg))
+  } else {
+    service
+      .create(req.body)
+      .then(result => {
+        res.json(bcode.genResult(result.status, result.data))
+      })
+      .catch(next)
+  }
 })
 router.put('/:id', (req, res, next) => {
   res.end('put req')

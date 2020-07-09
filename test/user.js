@@ -14,13 +14,29 @@ describe('user api', () => {
     return db.close()
   })
   it('get all', (done) => {
-    test(app)
-      .get('/users')
-      .expect(200)
-      .then(response => {
-        assert.equal(response.text, 'get all req')
-        done()
-      })
+    const promises = []
+    for (let i = 0; i < 11; i++) {
+      promises.push(test(app)
+        .post('/users')
+        .send({
+          username: 'test0' + i,
+          password: '123456',
+          gender: 'male'
+        })
+        .expect(200))
+    }
+    Promise.all(promises).then(() => {
+      test(app)
+        .get('/users')
+        .expect(200)
+        .then(response => {
+          assert.equal(response.body.size, 10)
+          assert.equal(response.body.page, 1)
+          assert.equal(response.body.total, 11)
+          assert.equal(response.body.data[0].username, 'test00')
+          done()
+        })
+    })
   })
   it('get', done => {
     test(app)
@@ -45,6 +61,8 @@ describe('user api', () => {
       .then(response => {
         assert.deepEqual(response.body.code, 10000)
         assert.deepEqual(response.body.data.username, 'xk123456')
+        assert.deepEqual(response.body.data.password, '123456')
+        assert.deepEqual(response.body.data.gender, 'male')
         done()
       })
   })

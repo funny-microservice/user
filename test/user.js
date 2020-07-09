@@ -35,7 +35,7 @@ describe('user api', () => {
     test(app)
       .post('/users')
       .send({
-        username: 'xk',
+        username: 'xk123456',
         password: '123456',
         gender: 'male'
       })
@@ -44,7 +44,7 @@ describe('user api', () => {
       .expect('Content-Type', /json/)
       .then(response => {
         assert.deepEqual(response.body.code, 10000)
-        assert.deepEqual(response.body.data.username, 'xk')
+        assert.deepEqual(response.body.data.username, 'xk123456')
         done()
       })
   })

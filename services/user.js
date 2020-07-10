@@ -78,7 +78,7 @@ module.exports = {
     return existUserResult
   },
   async remove (userId) {
-    const affectedRows = await global.db.user.destroy({
+    await global.db.user.destroy({
       where: { id: userId }
     })
     return {

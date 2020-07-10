@@ -1,10 +1,15 @@
 const express = require('express')
 const app = express()
 const bodyParser = require('body-parser')
+const morgan = require('morgan')
+const compression = require('compression')
+
 const userRoute = require('./routes/user')
 const bcode = require('./libs/business_code')
 
+app.use(morgan('combined'))
 app.use(bodyParser.json())
+app.use(compression())
 app.use('/users', userRoute)
 
 // capture all unhandled requests

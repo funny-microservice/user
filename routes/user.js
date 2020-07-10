@@ -8,8 +8,8 @@ router.all((req, res, next) => {
   next()
 })
 router.get('', async (req, res, next) => {
-  const size = req.query.size || 10
-  const page = req.query.page || 1
+  const size = +req.query.size || 10
+  const page = +req.query.page || 1
   try {
     const result = await service.list(page, size)
     res.json(bcode.genPageResult(result.status, {
@@ -26,7 +26,7 @@ router.get('', async (req, res, next) => {
 router.get('/:id', async (req, res, next) => {
   if (/[0-9]+/ig.test(req.params.id)) {
     try {
-      const result = await service.getById(req.params.id)
+      const result = await service.getById(+req.params.id)
       res.json(bcode.genResult(result.status, result.data))
     } catch (e) {
       next(e)
@@ -55,7 +55,7 @@ router.put('/:id', async (req, res, next) => {
       res.json(bcode.setResult(bcode.INVALID_PARAMS, msg))
     } else {
       try {
-        const result = await service.edit(req.params.id, req.body)
+        const result = await service.edit(+req.params.id, req.body)
         res.json(bcode.genResult(result.status, result.data))
       } catch (e) {
         next(e)
@@ -68,7 +68,7 @@ router.put('/:id', async (req, res, next) => {
 router.delete('/:id', async (req, res, next) => {
   if (/[0-9]+/ig.test(req.params.id)) {
     try {
-      const result = await service.remove(req.params.id)
+      const result = await service.remove(+req.params.id)
       res.json(bcode.genResult(result.status, result.data))
     } catch (e) {
       next(e)

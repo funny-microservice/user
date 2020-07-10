@@ -38,7 +38,7 @@ describe('user api', () => {
         })
     })
   })
-  it('get', done => {
+  it('get single', done => {
     test(app).post('/users').send({
       username: 'xk123456',
       password: '123456',

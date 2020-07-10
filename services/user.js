@@ -1,5 +1,4 @@
 const bcode = require('../libs/business_code')
-const { get } = require('../routes/user')
 
 module.exports = {
   async list (page, size) {
